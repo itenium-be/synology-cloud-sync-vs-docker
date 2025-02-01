@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  cron_job:
+    build: .
+    volumes:
+      - exportVolume:/export
+    environment:
+      CRON: ${CRON}
+
+volumes:
+  exportVolume:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: nfsvers=4,addr=127.0.0.1,rw
+      device: ":${SYNC_DIR}"
